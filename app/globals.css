@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -20,7 +23,10 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-image: url("/background.png");
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
+  background-color: #ededed;
 }
+
