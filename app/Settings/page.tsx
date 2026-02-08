@@ -232,7 +232,8 @@ export default function SettingsPage() {
               <button
                 onClick={resetForm}
                 disabled={isUpdating}
-                className="flex-1 py-4 bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-bold rounded-3xl hover:bg-zinc-300 transition-all flex items-center justify-center gap-2"
+                className="flex-1 py-4 bg-red-500  text-white rounded-3xl 
+                hover:bg-zinc-300 transition-all flex items-center justify-center gap-2"
               >
                 <RotateCcw size={18} />
                 Discard
@@ -250,11 +251,12 @@ export default function SettingsPage() {
 
       {/* Sync Overlay */}
       {isUpdating && (
-        <div className="fixed inset-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md z-[9999] flex flex-col items-center justify-center p-6 text-center">
-          <div className="w-24 h-24 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-3xl flex items-center justify-center mb-6 animate-bounce">
+        <div className="fixed inset-0 bg-white/95  backdrop-blur-md z-[9999] flex flex-col 
+        items-center justify-center p-6 text-center">
+          <div className="w-24 h-24 bg-blue-50  text-blue-600 rounded-3xl flex items-center justify-center mb-6 animate-bounce">
             <Download size={48} />
           </div>
-          <h2 className="text-3xl font-black text-zinc-900 dark:text-white mb-3">
+          <h2 className="text-3xl font-black text-zinc-900 mb-3">
             {downloadProgress > 0 ? `Syncing Data (${downloadProgress}%)` : 'Saving Profile...'}
           </h2>
           <p className="text-zinc-600 dark:text-zinc-400 max-w-sm mb-8">

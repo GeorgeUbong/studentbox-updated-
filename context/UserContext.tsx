@@ -7,7 +7,7 @@ interface UserContextType {
   grade: string | null;
   syncStatus: 'idle' | 'downloading' | 'error' | 'ready';
   login: (userData: any) => void;
-  updateUser: (updatedData: any) => void; // New function
+  updateUser: (updatedData: any) => void; 
   setSyncStatus: (status: 'idle' | 'downloading' | 'error' | 'ready') => void;
 }
 

@@ -20,7 +20,10 @@ export interface Lesson {
   title: string; 
   content: string; 
   media_url?: string; 
-  media_type?: string; // Added to match Supabase schema
+  media_type?: string;
+  // --- OFFLINE BLOB FIELDS ---
+  offline_file?: Blob;   // Stores the actual video/PDF file
+  is_offline?: boolean;  // Helper flag to check status quickly
 }
 
 export interface Assessment { 
@@ -39,11 +42,11 @@ export class OfflineDB extends Dexie {
   constructor() {
     super('OfflineLearningDB');
     
-    // Version bumped to 2 to include any schema changes
-    this.version(2).stores({
+    // Version bumped to 3 to handle the addition of offline_file
+    this.version(3).stores({
       subjects: 'id, grade_id',
       topics: 'id, subject_id',
-      lessons: 'id, topic_id',
+      lessons: 'id, topic_id, is_offline', // Added is_offline to the index for faster filtering
       assessments: 'id, lesson_id',
     });
   }
