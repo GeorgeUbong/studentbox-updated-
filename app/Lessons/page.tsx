@@ -8,6 +8,7 @@ import SubjectCard from '@/app/components/Card';
 import Link from 'next/link';
 import Sidebar from '@/app/components/Sidebar';
 import Navbar from '@/app/components/Navbar';
+import SearchBar from '../components/Search';
 
 // 1. Move the data-dependent logic to a separate component
 function LessonsContent() {
@@ -83,6 +84,8 @@ function LessonsContent() {
             <p className="text-zinc-500 mt-3 text-lg">
               Choose a lesson to start learning.
             </p>
+
+            <SearchBar />
           </header>
 
           {data.lessons.length === 0 ? (

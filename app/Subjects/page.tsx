@@ -7,6 +7,7 @@ import { useUser } from '@/context/UserContext';
 import SubjectCard from '@/app/components/Card';
 import Sidebar from '@/app/components/Sidebar';
 import Navbar from '@/app/components/Navbar';
+import SearchBar from '@/app/components/Search';
 
 export default function SubjectsPage() {
   const { user } = useUser();
@@ -55,13 +56,15 @@ export default function SubjectsPage() {
             <p className="text-zinc-500 mt-2 text-lg">
               Pick a subject to start exploring your topics and lessons.
             </p>
+
+            <SearchBar />
           </header>
 
           {!subjects ? (
             /* Loading State */
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pulse">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-48 bg-zinc-200 dark:bg-zinc-800/50 rounded-3xl" />
+                <div key={i} className="h-48 bg-zinc-200 rounded-3xl" />
               ))}
             </div>
           ) : subjects.length === 0 ? (

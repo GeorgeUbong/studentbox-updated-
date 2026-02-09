@@ -8,6 +8,7 @@ import Sidebar from '@/app/components/Sidebar';
 import Navbar from '@/app/components/Navbar';
 import { useUser } from '@/context/UserContext';
 import Link from 'next/link';
+import SearchBar from '../components/Search';
 
 export default function HomePage() {
   const { user } = useUser();
@@ -59,10 +60,13 @@ export default function HomePage() {
               <p className="text-zinc-600 text-lg lg:text-xl max-w-md font-medium">
                 Your lessons are ready — dive in and keep learning offline.
               </p>
+              <SearchBar />
             </div>
-            {/* FIX: Ensure decorative elements don't push the page width out */}
-            <div className="absolute -right-20 -top-20 w-80 h-80 bg-blue-50 rounded-full blur-3xl pointer-events-none" />
+           
+           
           </section>
+
+          
 
           {/* Recent Subjects Section */}
           <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">

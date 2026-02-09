@@ -8,6 +8,7 @@ import SubjectCard from '@/app/components/Card';
 import Link from 'next/link';
 import Sidebar from '@/app/components/Sidebar';
 import Navbar from '@/app/components/Navbar';
+import SearchBar from '@/app/components/Search';
 
 // 1. Logic sub-component
 function TopicsContent() {
@@ -65,14 +66,17 @@ function TopicsContent() {
             </span>
           </nav>
 
-          <h1 className="text-4xl font-black mb-8 text-zinc-900 dark:text-white">Topics</h1>
+          <h1 className="text-4xl font-black mb-8 text-zinc-900">Topics</h1>
+
+          <SearchBar 
+          />
 
           {data.topics.length === 0 ? (
             <div className="p-20 text-center border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl">
               <p className="text-zinc-400">No topics found offline for this subject.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {data.topics.map((topic) => (
                 <SubjectCard
                   key={topic.id}

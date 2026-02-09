@@ -24,7 +24,7 @@ export default function Home() {
       const { data } = await supabase
         .from('grades')
         .select('*')
-        .order('order_index', { ascending: true });
+        .order('created_at', { ascending: true });
       if (data) setGrades(data);
     };
     fetchGrades();
