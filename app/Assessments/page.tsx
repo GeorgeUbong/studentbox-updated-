@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/app/lib/dexie/db';
 import { useUser } from '@/context/UserContext';
@@ -9,7 +9,7 @@ import Navbar from '@/app/components/Navbar';
 import TestCard from '@/app/components/TestCard';
 
 export default function AssessmentsPage() {
-  const { user } = useUser();
+  const { user, login } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -52,6 +52,20 @@ export default function AssessmentsPage() {
     );
   }, [user?.grade_id]);
 
+   //check if prev user
+   //check if formerly registered
+    useEffect (() => {
+      //check if they exist
+      const savedUser = localStorage.getItem('user');
+  
+      if(savedUser){
+        const parsedUser = JSON.parse(savedUser);
+        if(parsedUser && !user){
+          login(parsedUser)
+        } 
+      }
+    }, []);
+
   return (
     <div className="min-h-screen ">
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
@@ -60,6 +74,7 @@ export default function AssessmentsPage() {
         <Navbar toggleSidebar={toggleSidebar} />
 
         <main className="max-w-6xl mx-auto p-6 lg:p-12">
+          <div className="fixed min-h-screen inset-0 -z-10 bg-[#f8fbff]/60"></div>
           <header className="mb-10">
             <h1 className="text-4xl text-[#1976D2] font-bold leading-tight">
               Your Assessments

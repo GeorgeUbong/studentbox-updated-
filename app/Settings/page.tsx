@@ -9,7 +9,7 @@ import { Download, AlertCircle, Save, RotateCcw } from 'lucide-react';
 import { createClient } from '@/app/lib/client';
 
 export default function SettingsPage() {
-  const { user, updateUser, setSyncStatus } = useUser();
+  const { user, updateUser, setSyncStatus, login } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
@@ -28,19 +28,44 @@ export default function SettingsPage() {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
-  // 1. Fetch Dynamic Grades from Supabase
+  // 1. Fetch Dynamic Grades from Supabase (with retry on online/focus)
   useEffect(() => {
-    async function fetchGrades() {
-      const { data, error } = await supabase
-        .from('grades')
-        .select('*')
-        .order('order_index', { ascending: true });
+    const fetchGrades = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('grades')
+          .select('*')
+          .order('created_at', { ascending: true });
 
-      if (!error && data) {
-        setGrades(data);
+        if (error) throw error;
+        if (data) {
+          setGrades(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch grades:', err);
+        // Keep any previously loaded grades (prevents empty dropdown)
       }
-    }
+    };
+
     fetchGrades();
+
+    // Retry when coming back online
+    const handleOnline = () => {
+      fetchGrades();
+    };
+
+    // Also retry when tab/window is focused again
+    const handleFocus = () => {
+      fetchGrades();
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('focus', handleFocus);
+    };
   }, [supabase]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -160,6 +185,20 @@ export default function SettingsPage() {
     formData.age !== (user?.age?.toString() || '') ||
     formData.grade_id !== (user?.grade_id || '');
 
+  //check if prev user
+  //check if formerly registered
+  useEffect (() => {
+    //check if they exist
+    const savedUser = localStorage.getItem('user');
+
+    if(savedUser){
+      const parsedUser = JSON.parse(savedUser);
+      if(parsedUser && !user){
+        login(parsedUser)
+      } 
+    }
+  }, []);
+
   return (
     <div className="min-h-screen ">
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
@@ -167,7 +206,8 @@ export default function SettingsPage() {
         <Navbar toggleSidebar={toggleSidebar} />
 
         <main className="max-w-2xl mx-auto p-6 md:p-10">
-          <h1 className="text-4xl font-black mb-10">Settings</h1>
+          <div className="fixed min-h-screen inset-0 -z-10 bg-[#f8fbff]/60"></div>
+          <h1 className="text-4xl font-bold text-[#1976D2] mb-10">Settings</h1>
 
           <div className="space-y-8 bg-white  p-8 rounded-3xl shadow-sm border-[#568CCE] ">
             {/* Name Input */}

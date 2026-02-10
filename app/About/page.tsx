@@ -21,6 +21,7 @@ export default function AboutPage() {
 
         {/* 4. Main Content */}
         <main className="max-w-4xl mx-auto p-6 lg:p-12">
+          <div className="fixed min-h-screen inset-0 -z-10 bg-[#f8fbff]/60"></div>
           
           {/* Header */}
           <header className="mb-10">
@@ -56,12 +57,7 @@ export default function AboutPage() {
             </section>
           </div>
 
-          {/* Simple Footer */}
-          <footer className="mt-20 pt-8 border-t border-zinc-200 dark:border-zinc-800">
-            <p className="text-zinc-400 text-sm">
-              © 2026 Bridge Box Learning • Empowering Education Offline
-            </p>
-          </footer>
+          
         </main>
       </div>
     </div>

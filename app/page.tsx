@@ -6,6 +6,7 @@ import { useUser } from '@/context/UserContext';
 import { useSyncEngine } from '@/hooks/useSyncEngine';
 import { useRouter } from 'next/navigation';
 import { ChevronDown, Download } from 'lucide-react';
+import router from 'next/router';
 
 export default function Home() {
   const [grades, setGrades] = useState<any[]>([]);
@@ -56,15 +57,14 @@ export default function Home() {
     }
   };
 
+  
+
   return (
     <div 
       className="flex min-h-screen items-center justify-center  p-6 relative overflow-hidden"
-      style={{ 
-        backgroundImage: `url('/pattern.png')`,
-        backgroundRepeat: 'repeat',
-        backgroundSize: '400px'
-      }}
+      
     >
+      <div className="absolute inset-0 -z-10 bg-[#f8fbff]/60"></div>
       {/* Downloading Modal Overlay */}
       {loading && (
         <div className="fixed inset-0 bg-white/95 z-[9999] flex flex-col items-center justify-center p-6 animate-in fade-in duration-300">

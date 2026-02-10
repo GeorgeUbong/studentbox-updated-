@@ -93,7 +93,8 @@ export default function NotificationsPage() {
         <Navbar toggleSidebar={() => setIsOpen(!isOpen)} />
 
         <main className="max-w-2xl mx-auto p-6 lg:p-12">
-          <header className="mb-10 flex items-end justify-between">
+          <div className="fixed min-h-screen inset-0 -z-10 bg-[#f8fbff]/60"></div>
+          <header className="mb-1`0 flex items-end justify-between">
             <div>
               <h1 className="text-3xl font-black ">Updates</h1>
               <p className="text-zinc-500 mt-1">Check for new content and sync your device.</p>

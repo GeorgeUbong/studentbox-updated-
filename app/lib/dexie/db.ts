@@ -16,7 +16,8 @@ export interface Topic {
 
 export interface Lesson { 
   id: string; 
-  topic_id: string; 
+  topic_id: string
+  subject_id: string;
   title: string; 
   content: string; 
   media_url?: string; 
@@ -46,7 +47,7 @@ export class OfflineDB extends Dexie {
     this.version(3).stores({
       subjects: 'id, grade_id',
       topics: 'id, subject_id',
-      lessons: 'id, topic_id, is_offline', // Added is_offline to the index for faster filtering
+      lessons: 'id, topic_id, subject_id, is_offline', // Added is_offline to the index for faster filtering
       assessments: 'id, lesson_id',
     });
   }

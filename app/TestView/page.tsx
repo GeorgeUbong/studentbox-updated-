@@ -183,6 +183,7 @@ export default function TestViewPage() {
       <div className={`transition-all duration-300 ${isOpen ? 'ml-0' : 'sm:ml-64'}`}>
         <Navbar toggleSidebar={toggleSidebar} />
         <main className="max-w-4xl mx-auto px-6 py-10">
+          <div className="fixed min-h-screen inset-0 -z-10 bg-[#f8fbff]/60"></div>
           <Suspense fallback={<div className="h-96 w-full rounded-3xl bg-zinc-100 animate-pulse flex items-center justify-center font-black text-zinc-400">LOADING ASSESSMENT...</div>}>
             <TestContent />
           </Suspense>

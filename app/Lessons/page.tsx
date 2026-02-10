@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react'; // Added Suspense
+import { useState, Suspense, useEffect, useContext } from 'react'; // Added Suspense
 import { useSearchParams } from 'next/navigation';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/app/lib/dexie/db';
@@ -9,11 +9,14 @@ import Link from 'next/link';
 import Sidebar from '@/app/components/Sidebar';
 import Navbar from '@/app/components/Navbar';
 import SearchBar from '../components/Search';
+import { useUser } from '@/context/UserContext';
 
 // 1. Move the data-dependent logic to a separate component
 function LessonsContent() {
+  const {user, login} = useUser();
   const searchParams = useSearchParams();
   const topicId = searchParams.get('topicId');
+  
 
   const data = useLiveQuery(async () => {
     if (!topicId) return null;
@@ -26,9 +29,24 @@ function LessonsContent() {
 
     return { topic, lessons };
   }, [topicId]);
+   //check if prev user
+   //check if formerly registered
+    useEffect (() => {
+      //check if they exist
+      const savedUser = localStorage.getItem('user');
+  
+      if(savedUser){
+        const parsedUser = JSON.parse(savedUser);
+        if(parsedUser && !user){
+          login(parsedUser)
+        } 
+      }
+    }, []);
+
 
   return (
     <main className="max-w-6xl mx-auto p-6 lg:p-12">
+      <div className="fixed min-h-screen inset-0 -z-10 bg-[#f8fbff]/60"></div>
       {/* Case: No Topic Selected */}
       {!topicId && (
         <div className="flex min-h-[50vh] items-center justify-center p-6 text-center">

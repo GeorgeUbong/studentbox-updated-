@@ -29,6 +29,7 @@ function TopicsContent() {
 
   return (
     <main className="max-w-6xl mx-auto p-6 lg:p-12">
+      <div className="fixed min-h-screen inset-0 -z-10 bg-[#f8fbff]/60"></div>
       {/* Handle No ID Case */}
       {!subjectId && (
         <div className="p-20 text-center">
@@ -66,7 +67,7 @@ function TopicsContent() {
             </span>
           </nav>
 
-          <h1 className="text-4xl font-black mb-8 text-zinc-900">Topics</h1>
+          <h1 className="text-4xl text-[#1976D2] font-bold mb-8 text-[#1976D2]">Topics</h1>
 
           <SearchBar 
           />

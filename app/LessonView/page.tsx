@@ -77,6 +77,7 @@ function LessonContent() {
         <Navbar toggleSidebar={toggleSidebar} />
 
         <main className="max-w-5xl mx-auto p-6 lg:p-12">
+          <div className="fixed min-h-screen inset-0 -z-10 bg-[#f8fbff]/60"></div>
           {!lessonId && (
             <div className="flex min-h-[50vh] items-center justify-center p-6 text-center">
               <div className="flex flex-col items-center">
@@ -108,7 +109,7 @@ function LessonContent() {
               </nav>
 
               <header className="mb-10">
-                <h1 className="text-4xl md:text-5xl font-black text-zinc-900 leading-tight">
+                <h1 className="text-4xl mb-30 md:text-5xl font-black text-zinc-900 leading-tight">
                   {lesson.title}
                 </h1>
                 <div className="flex items-center gap-2 mt-6">
@@ -118,20 +119,12 @@ function LessonContent() {
               </header>
 
               {lesson.media_url && (
-                <section className="mb-12 rounded-[2.5rem] overflow-hidden bg-black shadow-2xl shadow-blue-900/10 ring-1 ring-zinc-100">
+                <section className="mb-12 rounded-[2.5rem] border border-[#1976D2] overflow-hidden bg-black  shadow-blue-900/10 ring-1 ring-zinc-100">
                   <div className="bg-zinc-50 px-6 py-3 flex justify-between items-center border-b border-zinc-100">
                     <span className="text-zinc-500 text-xs font-black uppercase tracking-tight">
                       {lesson.media_type === 'video' ? 'Video Lesson' : 'PDF Document'}
                     </span>
-                    <button 
-                      onClick={handleDownloadOffline}
-                      disabled={isDownloading || lesson.is_offline}
-                      className={`text-xs font-black px-4 py-2 rounded-full transition-all ${
-                        lesson.is_offline ? 'bg-green-100 text-green-600' : 'bg-[#1976D2] text-white hover:bg-blue-700'
-                      }`}
-                    >
-                      {isDownloading ? 'DOWNLOADING...' : lesson.is_offline ? 'AVAILABLE OFFLINE' : 'DOWNLOAD FOR OFFLINE'}
-                    </button>
+                    
                   </div>
 
                   {lesson.media_type === 'video' ? (
@@ -152,8 +145,22 @@ function LessonContent() {
                       />
                     </div>
                   )}
+                  
                 </section>
+                
               )}
+
+              <div className='flex items-center justify-center mb-15'>
+                <button 
+                      onClick={handleDownloadOffline}
+                      disabled={isDownloading || lesson.is_offline}
+                      className={`text-xs font-black px-4 py-2 rounded-full transition-all ${
+                        lesson.is_offline ? 'bg-green-100 text-green-600' : 'bg-[#1976D2] text-white hover:bg-white hover:text-[#1976D2]'
+                      }`}
+                    >
+                      {isDownloading ? 'DOWNLOADING...' : lesson.is_offline ? 'AVAILABLE OFFLINE' : 'DOWNLOAD PDF/Video'}
+                    </button>
+              </div>
 
               <div className="flex items-center gap-2 mb-8">
                  <div className="h-1 w-12 bg-[#1976D2] rounded-full" />

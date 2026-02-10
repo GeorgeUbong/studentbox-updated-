@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/app/lib/dexie/db';
 import SubjectCard from '@/app/components/Card';
@@ -11,7 +11,7 @@ import Link from 'next/link';
 import SearchBar from '../components/Search';
 
 export default function HomePage() {
-  const { user } = useUser();
+  const { user, login } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -40,6 +40,19 @@ export default function HomePage() {
     []
   );
 
+  //check if prev user
+ //check if formerly registered
+  useEffect (() => {
+    //check if they exist
+    const savedUser = localStorage.getItem('user');
+
+    if(savedUser){
+      const parsedUser = JSON.parse(savedUser);
+      if(parsedUser && !user){
+        login(parsedUser)
+      } 
+    }
+  }, []);
   return (
     // FIX: Added overflow-x-hidden here to prevent side-scrolling
     <div className="min-h-screen  overflow-x-hidden">
@@ -50,6 +63,7 @@ export default function HomePage() {
 
         {/* FIX: Ensure max-width doesn't cause overflow on small screens */}
         <main className="max-w-6xl mx-auto p-6 lg:p-12 space-y-12 w-full">
+          <div className="fixed min-h-screen inset-0 -z-10 bg-[#f8fbff]/60"></div>
           
           {/* Hero Section */}
           <section className="relative">
